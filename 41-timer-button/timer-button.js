@@ -7,7 +7,8 @@ var timerButton=(function() {
     num:6,
     title:'同意'
   },
-  timer;
+  timer,
+  num;
      
 //第一种外部引用css样式     
 //第二种在js中添加样式
@@ -18,26 +19,29 @@ var timerButton=(function() {
   function show(conf){
     //Dom绘制、事件绑定
     // $(a).html(html)
+    if(timer) clearInterval(timer);
     $(cfg.container).append($btn);
     $.extend(cfg,conf);
-    $btn.val(cfg.title+'('+cfg.num+'s)')
+    num = cfg.num;
+    $btn.val(cfg.title+'('+num+'s)')
     timer =setInterval(function(){
-      cfg.num--;
-      if(cfg.num===0){
+      num--;
+      if(num===0){
         clearInterval(timer);
         $btn.val(cfg.title);
         $btn.removeAttr('disabled');
       }
       else{
-        $btn.val(cfg.title+'('+cfg.num+"s)")
+        $btn.val(cfg.title+'('+num+"s)")
       }
     },1000);
-    $btn.click(function(){
-      alert('谢谢');
-  
-    });
+    
 
   }
+  $btn.click(function(){
+    alert('点击成功')
+
+  });
   
   return {
     show:show
