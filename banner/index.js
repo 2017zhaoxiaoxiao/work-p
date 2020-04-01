@@ -26,8 +26,10 @@ var $dlgGoto = (function() {
   var left = $dlg.find('#left')[0],
       right = $dlg.find('#right')[0],
       box=$('#box')[0],
-      slider=$dlg.find('#slider')[0],
+      slider=$dlg.find('#slider'),
+      
       nav = $dlg.find('.nav').children();
+      console.log(slider);
   var index=1;
   var cfg = {
     container:'#box'
@@ -54,14 +56,16 @@ var $dlgGoto = (function() {
   }
 	function next(){
     index++;
+    
 			if(index>=6){
         index=1;
-        animate(slider,{left:-1200*6},()=>{
-          slider.style.left="-1200px"; 
-        });
+        slider.animate({left: -7200},'slow',()=>{
+          console.log(slider.css('left'));
+          slider.css('left',-1200);
+        })
       }
       else{
-        animate(slider,{left:-1200*index});
+        slider.animate({left:-1200*index},'slow');
       }
       navChange();
         
@@ -72,29 +76,33 @@ var $dlgGoto = (function() {
 				index--;
 				if(index==0){
           index=5;
-          animate(slider,{left:-1200*0},()=>{
-            slider.style.left="-6000px";
-          });
+          slider.animate({left:-1200*0},'slow',()=>{
+            slider.css('left',-6000);
+          })
           
         }
         else{
-          animate(slider,{left:-1200*index});
+          slider.animate({left:-1200*index},'slow');
+          
         }
 			
 				navChange();
 			}
 			//鼠标划上时停止轮播，左右箭头淡入
 			box.onmouseover=function(){
+        left.style.opacity=0.5;
+        right.style.opacity=0.5;
        
 				clearInterval(timer);
-				animate(left,{opacity:50})
-				animate(right,{opacity:50})
+        
 		
 			}
 			//鼠标划离时开始轮播，左右箭头淡出
 			box.onmouseout=function(){
-				animate(left,{opacity:0});
-				animate(right,{opacity:0});
+        left.style.opacity=0;
+        right.style.opacity=0;
+       
+			
 				timer=setInterval(next,3000);
 			}
 		
@@ -120,46 +128,46 @@ var $dlgGoto = (function() {
         }
 			}
 	
-      function getStyle(obj,style){
+      // function getStyle(obj,style){
 			
-        if(window.getComputedStyle(obj,null)){
-          return window.getComputedStyle(obj,null)[style];
-        }
-        else{
-          return obj.currentStyle[style];	
-        }
-      }
-    function animate(obj,json,callback){
-        clearInterval(obj.timer);
-        obj.timer=setInterval(
-          function(){
-          var isStop=true;	
-          for(var attr in json){
-            if(attr=='opacity'){
-              var now=parseInt(getStyle(obj,attr)*100);
-            }
-            else{
-              var now=parseInt(getStyle(obj,attr));
-            }
-            var speed=(json[attr]-now)/30;
-            speed=speed>0?Math.ceil(speed):Math.floor(speed);
-            if(attr=='opacity'){
-              obj.style[attr]=(now+speed)/100;
-            }
-            else{
-              obj.style[attr]=now+speed+'px';
-            }
-            var current=now+speed;
-            if(json[attr]!=current){
-              isStop=false
-            }
-          }
-          if(isStop){
-            clearInterval(obj.timer);
-            callback&&callback();
-          }			
-        },10);
-    }
+      //   if(window.getComputedStyle(obj,null)){
+      //     return window.getComputedStyle(obj,null)[style];
+      //   }
+      //   else{
+      //     return obj.currentStyle[style];	
+      //   }
+      // }
+    // function animate(obj,json,callback){
+    //     clearInterval(obj.timer);
+    //     obj.timer=setInterval(
+    //       function(){
+    //       var isStop=true;	
+    //       for(var attr in json){
+    //         if(attr=='opacity'){
+    //           var now=parseInt(getStyle(obj,attr)*100);
+    //         }
+    //         else{
+    //           var now=parseInt(getStyle(obj,attr));
+    //         }
+    //         var speed=(json[attr]-now)/30;
+    //         speed=speed>0?Math.ceil(speed):Math.floor(speed);
+    //         if(attr=='opacity'){
+    //           obj.style[attr]=(now+speed)/100;
+    //         }
+    //         else{
+    //           obj.style[attr]=now+speed+'px';
+    //         }
+    //         var current=now+speed;
+    //         if(json[attr]!=current){
+    //           isStop=false
+    //         }
+    //       }
+    //       if(isStop){
+    //         clearInterval(obj.timer);
+    //         callback&&callback();
+    //       }			
+    //     },10);
+    // }
   
     
  
