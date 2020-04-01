@@ -34,7 +34,7 @@ var $dlgGoto = (function() {
     
   };
   var time;
-  var timer=setInterval(next,3000);
+  var timer;
   right.onclick=next;
   left.onclick=prev;
   for(var i=0;i<nav.length;i++){
@@ -48,9 +48,9 @@ var $dlgGoto = (function() {
   function show(conf) {
     $(cfg.container).append($dlg);
     $.extend(cfg, conf);
-    // time=cfg.time;
-    // console.log(time)
-    // timer=setInterval(next,time);
+    time=cfg.time;
+    console.log(time);
+    timer=setInterval(next,time);
   }
 	function next(){
     index++;
