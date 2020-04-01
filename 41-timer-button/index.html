@@ -17,11 +17,17 @@
   <script src="./timer-button.js"></script>
   <script>
     $(function(){
+     
       var btnAdd=$("#add");
       btnAdd.click(function(){
-        timerButton.show({
+        var tb=new TimerButton();
+        tb.show({
           num:Number($('#number').val()),
-          title:"获取验证码"
+          title:"获取验证码",
+          onclick:function(){
+            alert('点击成功');
+          }
+
          
         });
       });
