@@ -30,11 +30,11 @@ var $dlgGoto = (function() {
       nav = $dlg.find('.nav').children();
   var index=1;
   var cfg = {
-    container:'#box',
-    time:2000
+    container:'#box'
+    
   };
   var time;
-  var timer;
+  var timer=setInterval(next,3000);
   right.onclick=next;
   left.onclick=prev;
   for(var i=0;i<nav.length;i++){
@@ -48,14 +48,12 @@ var $dlgGoto = (function() {
   function show(conf) {
     $(cfg.container).append($dlg);
     $.extend(cfg, conf);
-    time=cfg.time;
-    console.log(time)
-    timer=setInterval(next,time);
+    // time=cfg.time;
+    // console.log(time)
+    // timer=setInterval(next,time);
   }
-
 	function next(){
     index++;
-    
 			if(index>=6){
         index=1;
         animate(slider,{left:-1200*6},()=>{
