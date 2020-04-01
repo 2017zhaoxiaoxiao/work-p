@@ -53,23 +53,35 @@ var $dlgGoto = (function() {
   }
 
 	function next(){
-		index++;
-		animate(slider,{left:-1200*index},function(){
-			if(index==6){
-				slider.style.left="-1200px";
-				index=1;
-			}
-		});
-		navChange();
+    index++;
+    
+			if(index>=6){
+        index=1;
+        animate(slider,{left:-1200*6},()=>{
+          slider.style.left="-1200px"; 
+        });
+      }
+      else{
+        animate(slider,{left:-1200*index});
+      }
+      navChange();
+        
+       
+     
 	}
 		function prev(){
 				index--;
-				animate(slider,{left:-1200*index},function(){
-					if(index==0){
-						slider.style.left="-6000px";
-						index=5;
-					}
-				});
+				if(index==0){
+          index=5;
+          animate(slider,{left:-1200*0},()=>{
+            slider.style.left="-6000px";
+          });
+          
+        }
+        else{
+          animate(slider,{left:-1200*index});
+        }
+			
 				navChange();
 			}
 			//鼠标划上时停止轮播，左右箭头淡入
@@ -87,15 +99,18 @@ var $dlgGoto = (function() {
 			}
 		
 			function navChange(){
+       
 				for(var i=0;i<nav.length;i++){
           nav[i].className="";
         }
        
 				if(index==6){
+         
           nav[0].className='active';
          
 				}
 				else if(index==0){
+         
 					nav[4].className='active';
 				}
 				else{
