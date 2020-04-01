@@ -34,6 +34,7 @@ var $dlgGoto = (function() {
     time:2000
   };
   var time;
+  var timer;
   right.onclick=next;
   left.onclick=prev;
   for(var i=0;i<nav.length;i++){
@@ -86,6 +87,7 @@ var $dlgGoto = (function() {
 			}
 			//鼠标划上时停止轮播，左右箭头淡入
 			box.onmouseover=function(){
+       
 				clearInterval(timer);
 				animate(left,{opacity:50})
 				animate(right,{opacity:50})
