@@ -44,7 +44,7 @@ var $dlgGoto = (function() {
     nav[i].idx=i;
     nav[i].onclick=function(){
       index=this.idx+1;
-      animate(slider,{left:index*-1200})
+     slider.animate({left:-1200*index},'slow')
       navChange();
     }
   }
