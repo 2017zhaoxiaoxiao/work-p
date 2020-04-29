@@ -52,12 +52,10 @@ var $dlgGoto = (function() {
     $(cfg.container).append($dlg);
     $.extend(cfg, conf);
     time=cfg.time;
-    console.log(time);
     timer=setInterval(next,time);
   }
 	function next(){
     index++;
-    
 			if(index>=6){
         index=1;
         slider.animate({left: -7200},'slow',()=>{
@@ -87,9 +85,13 @@ var $dlgGoto = (function() {
         }
 			
 				navChange();
-			}
-		
+      }
+      // console.log(box);
+      box.mouseover(function(){
+        clearInterval(timer);
+      })
       box.mouseenter(function(){
+        
         clearInterval(timer);
         left.animate({opacity:0.5},1000);
         right.animate({opacity:0.5},1000);
